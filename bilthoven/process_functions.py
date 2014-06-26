@@ -20,12 +20,12 @@ def process(data, transformation, block_size=1024, hop_size=None):
     if not hop_size:
         hop_size = block_size
 
-    processed_data = array([])
+    processed_data = []
 
     random_parameter = 0  # TODO random walk
     previous_block = zeros(block_size)
     for current_block in block_iterator(data, block_size=block_size, hop_size=hop_size):
         processed_block = transformation(current_block, previous_block, random_parameter)
-        processed_data = append(processed_data, processed_block)
+        processed_data += list(processed_block)
 
-    return processed_data
+    return array(processed_data)

@@ -28,9 +28,9 @@ Applying a transformation
 from bilthoven import process, read_wave, write_wave
 from bilthoven.transformations import reverse
 
-wave_data = read_wave('examples/example.wav')
+rate, wave_data = read_wave('examples/example.wav')
 processed_data = process(wave_data, reverse)
-write_wave('output/example-reversed.wav')
+write_wave('output/example-reversed.wav', rate, processed_data)
 ```
 
 What ``bilthoven`` does is that it cuts the audio data into little blocks which then are processed one by one.

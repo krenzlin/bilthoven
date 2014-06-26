@@ -50,6 +50,10 @@ def my_transformation(current_block, previous_block, random_parameter):
 * **previous_block**: the same, but only the block before the current one
 * **random_parameter**: this is parameter that the ``process`` function provides, you don't **have** to use it
 
+..note::
+   All blocks are numpy arrays.
+   
+
 Applying your own transformation is easy
 
 ```python

@@ -1,4 +1,8 @@
 from numpy import array, zeros, append
+from itertools import izip
+import numpy as np
+
+from random_functions import random_walk
 
 
 def block_iterator(data, block_size=1024, hop_size=1024):
@@ -22,9 +26,9 @@ def process(data, transformation, block_size=1024, hop_size=None):
 
     processed_data = []
 
-    random_parameter = 0  # TODO random walk
     previous_block = zeros(block_size)
-    for current_block in block_iterator(data, block_size=block_size, hop_size=hop_size):
+    random_parameters = random_walk(np.ceil(len(data) / hop_size))
+    for current_block, random_parameter in izip(block_iterator(data, block_size=block_size, hop_size=hop_size), random_parameters):
         processed_block = transformation(current_block, previous_block, random_parameter)
         processed_data += list(processed_block)
         previous_block = current_block

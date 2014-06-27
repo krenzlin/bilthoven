@@ -12,8 +12,8 @@ def reverse(current_block, *args):
 
 
 def diff(current_block, previous_block, *args):
-    """Substracts the previous block from the current block."""
-    return current_block - previous_block
+    """Subtracts the previous block from the current block."""
+    return (current_block - previous_block[:len(current_block)])
 
 
 def fft(current_block, *args):

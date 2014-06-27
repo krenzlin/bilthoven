@@ -65,3 +65,9 @@ multichannel audio
 
 :func:`~bilthoven.process` only support single channel audio data. If you have more use :func:`~bilthoven.process_multi` which tries to process each channel alone.
 If you are not sure, just use :func:`~bilthoven.process_multi` because can also deal with single channel audio.
+
+requirements
+------------
+
+* ``scipy``
+* ``numpy``

@@ -23,7 +23,7 @@ def fft(current_block, *args):
 
 
 def reduce(current_block, *args):
-    N = 4
+    N = 2
     F = np.fft.fft(current_block)
 
     indexes_of_N_max_values = np.imag(F).argsort()[::-1][:N]
@@ -32,3 +32,27 @@ def reduce(current_block, *args):
     reduced_F[indexes_of_N_max_values] = F[indexes_of_N_max_values]
 
     return np.abs(np.fft.ifft(reduced_F)).astype(np.int16)
+
+
+def random_frequency(current_block, previous_block, parameter):
+    F = np.fft.rfft(current_block)
+
+    index = np.floor((len(F)-1) * parameter / 4.0)
+
+    reduced_F = np.zeros(len(F)).astype(np.complex128)
+    reduced_F[index] = F[index]
+
+    return np.abs(np.fft.irfft(reduced_F)).astype(np.int16)
+
+
+def reverse_diff(current_block, *args):
+    return diff(current_block, reverse(current_block))
+
+
+def autocorr(x):
+    result = np.correlate(x, x, mode='full')
+    return result[result.size/2:]
+
+
+def acf(current_block, *args):
+    return autocorr(current_block)

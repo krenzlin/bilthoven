@@ -2,7 +2,10 @@ import scipy.io.wavfile
 
 
 def read_wave(file_name):
-    return scipy.io.wavfile.read(file_name)
+    rate, data = scipy.io.wavfile.read(file_name)
+    if len(data.shape) > 1:
+        data = data[:,0]
+    return rate, data
 
 
 def write_wave(file_name, rate, data):

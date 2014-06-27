@@ -29,3 +29,16 @@ def process(data, transformation, block_size=1024, hop_size=None):
         processed_data += list(processed_block)
 
     return array(processed_data)
+
+
+def process_multi(data, *args):
+    """Like :func:`process` but can handle multichannel audio data."""
+    if len(data.shape) == 1:
+        return process(data, *args)
+    elif len(data.shape) == 2:
+        processed_data = []
+        for i in range(data.shape[1]):
+            processed_channel = process(data[:, i], *args)
+            processed_data.append(processed_channel)
+        return array(processed_data).transpose()
+        

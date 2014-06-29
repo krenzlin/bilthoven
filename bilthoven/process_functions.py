@@ -19,7 +19,7 @@ def block_iterator(data, block_size=1024, hop_size=1024):
         i += hop_size
 
 
-def process(data, transformation, block_size=1024, hop_size=None):
+def process_single_channel(data, transformation, block_size=1024, hop_size=None):
     """Applies transformation on audio data blockwise."""
     if not hop_size:
         hop_size = block_size
@@ -35,14 +35,14 @@ def process(data, transformation, block_size=1024, hop_size=None):
     return array(processed_data)
 
 
-def process_multi(data, *args, **kwargs):
+def process(data, *args, **kwargs):
     """Like :func:`process` but can handle multichannel audio data."""
     if len(data.shape) == 1:
-        return process(data, *args)
+        return process_single_channel(data, *args)
     elif len(data.shape) == 2:
         processed_data = []
         for i in range(data.shape[1]):
-            processed_channel = process(data[:, i], *args, **kwargs)
+            processed_channel = process_single_channel(data[:, i], *args, **kwargs)
             processed_data.append(processed_channel)
         return array(processed_data).transpose()
         

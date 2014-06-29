@@ -23,4 +23,16 @@ def random_walk_horizontal(N):
     rw = random_walk(N)
     line = np.linspace(rw[0], rw[-1], N)
 
-    return normalize(rw - line, minus=True)
+    horizontal = rw - line
+
+    return horizontal / np.max(np.abs(horizontal))
+
+
+def random_wave(N1, N2=None):
+    if N2 is None:
+        N2 = N1
+    rw_first = random_walk_horizontal(N1)
+    rw_second = random_walk_horizontal(N2)
+    wave = np.append(rw_first, rw_second)
+
+    return wave

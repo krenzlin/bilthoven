@@ -1,4 +1,4 @@
-from bilthoven.random_functions import random_walk, random_walk_horizontal
+from bilthoven.random_functions import random_walk
 from bilthoven import write_wave
 import numpy as np
 from itertools import izip

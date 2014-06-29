@@ -19,12 +19,12 @@ def test_block_iterator():
 
 
 def test_process():
-    from bilthoven.process_functions import process
+    from bilthoven.process_functions import process_single_channel
     from bilthoven.transformations import reverse
 
     data = array(range(10))
 
     result_should = array([1,0,3,2,5,4,7,6,9,8])
-    result_is = process(data, reverse, block_size=2)
+    result_is = process_single_channel(data, reverse, block_size=2)
     assert array_equal(result_is, result_should)
 

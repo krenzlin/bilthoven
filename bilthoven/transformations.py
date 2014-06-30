@@ -23,7 +23,7 @@ def fft(current_block, *args):
 
 
 def reduce(current_block, *args):
-    N = 2
+    N = 4
     F = np.fft.fft(current_block)
 
     indexes_of_N_max_values = np.imag(F).argsort()[::-1][:N]

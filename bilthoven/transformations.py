@@ -65,3 +65,27 @@ def speedx(current_block, previous_block, factor):
     indices = np.round(np.arange(0, len(current_block), factor))
     indices = indices[indices < len(current_block)].astype(int)
     return current_block[indices.astype(int)]
+
+
+def granular(current_block, previous_block, random_parameter):
+    """Ultra simple approach to granular synthesis."""
+    grain_size = np.floor(len(current_block)/10)
+    window = np.hanning(grain_size)
+    hop_size = np.floor(grain_size/2)
+    resynthesis_hop_size = np.floor((random_parameter+0.01)*2 * hop_size)
+
+    print len(current_block), grain_size, hop_size, resynthesis_hop_size
+
+    result = np.zeros((len(current_block)-grain_size+resynthesis_hop_size) / resynthesis_hop_size * grain_size + grain_size)
+
+    i_in = 0
+    i_out = 0
+    while i_in < len(current_block) - grain_size:
+        grain = current_block[i_in:i_in+grain_size] * window
+        print grain.shape, result.shape, i_out, i_out+grain_size
+        result[i_out:i_out+grain_size] += grain
+
+        i_in += hop_size
+        i_out += resynthesis_hop_size
+
+    return result

@@ -1,6 +1,6 @@
 from bilthoven import process, read_wave, write_wave
-from bilthoven.transformations import reverse
+from bilthoven.transformations import reverse, granular
 
 rate, wave_data = read_wave('examples/example.wav')
-processed_data = process(wave_data, reverse)
+processed_data = process(wave_data, granular)
 write_wave('output/example-reversed.wav', rate, processed_data)

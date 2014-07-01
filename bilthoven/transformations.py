@@ -31,7 +31,7 @@ def reduce(current_block, *args):
     reduced_F = np.zeros(len(F)).astype(np.complex128)
     reduced_F[indexes_of_N_max_values] = F[indexes_of_N_max_values]
 
-    return np.abs(np.fft.ifft(reduced_F))
+    return np.real(np.fft.ifft(reduced_F))
 
 
 def random_frequency(current_block, previous_block, parameter):
@@ -42,7 +42,7 @@ def random_frequency(current_block, previous_block, parameter):
     reduced_F = np.zeros(len(F)).astype(np.complex128)
     reduced_F[index] = F[index]
 
-    return np.abs(np.fft.irfft(reduced_F))
+    return np.real(np.fft.irfft(reduced_F))
 
 
 def reverse_diff(current_block, *args):

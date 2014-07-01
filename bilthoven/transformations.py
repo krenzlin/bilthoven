@@ -18,8 +18,8 @@ def diff(current_block, previous_block, *args):
 
 def fft(current_block, *args):
     F = np.fft.rfft(current_block)
-    f = np.fft.irfft(F).astype(np.int16)
-    return f
+    f = np.fft.irfft(F)
+    return np.real(f)
 
 
 def reduce(current_block, *args):

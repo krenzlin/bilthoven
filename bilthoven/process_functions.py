@@ -4,6 +4,12 @@ from itertools import izip
 from random_functions import random_walk
 from mix_functions import mix
 
+try:
+    from tqdm import tqdm
+except ImportError:
+    def tqdm(*args, **kargs):
+        return args[0]
+
 
 def block_iterator(data, block_size=1024, hop_size=1024):
     """
@@ -28,7 +34,7 @@ def process_single_channel(data, transformation, block_size=1024, hop_size=None)
 
     previous_block = zeros(block_size)
     random_parameters = random_walk(ceil(len(data) / hop_size))
-    for current_block, random_parameter in izip(block_iterator(data, block_size=block_size, hop_size=hop_size), random_parameters):
+    for current_block, random_parameter in tqdm(izip(block_iterator(data, block_size=block_size, hop_size=hop_size), random_parameters), total=len(random_parameters), desc='blockwise processing', leave=True):
         processed_block = transformation(current_block, previous_block, random_parameter)
         processed_data = mix(processed_data, processed_block, hop_size)
         previous_block = current_block

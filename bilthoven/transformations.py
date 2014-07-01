@@ -56,3 +56,12 @@ def autocorr(x):
 
 def acf(current_block, *args):
     return autocorr(current_block)
+
+
+def speedx(current_block, previous_block, factor):
+    """ Multiplies the sound's speed by some `factor` """
+    # random parameter 0-1 -> 0.5-1.5
+    factor += 0.5
+    indices = np.round(np.arange(0, len(current_block), factor))
+    indices = indices[indices < len(current_block)].astype(int)
+    return current_block[indices.astype(int)]

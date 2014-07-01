@@ -26,7 +26,7 @@ def reduce(current_block, *args):
     N = 4
     F = np.fft.fft(current_block)
 
-    indexes_of_N_max_values = np.imag(F).argsort()[::-1][:N]
+    indexes_of_N_max_values = np.real(F).argsort()[::-1][:N]
 
     reduced_F = np.zeros(len(F)).astype(np.complex128)
     reduced_F[indexes_of_N_max_values] = F[indexes_of_N_max_values]

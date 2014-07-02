@@ -1,5 +1,6 @@
 from numpy import array, zeros, ceil
 from itertools import izip
+import numpy as np
 
 from random_functions import random_walk
 from mix_functions import mix
@@ -43,7 +44,7 @@ def process_single_channel(data, transformation, block_size=1024, hop_size=None)
 
 def process(data, *args, **kwargs):
     """Like :func:`process` but can handle multichannel audio data."""
-    if len(data.shape) == 1:
+    if len(data.shape) == 1 and not data.dtype == np.object:
         return process_single_channel(data, *args)
     elif len(data.shape) == 2:
         processed_data = []
@@ -51,4 +52,9 @@ def process(data, *args, **kwargs):
             processed_channel = process_single_channel(data[:, i], *args, **kwargs)
             processed_data.append(processed_channel)
         return array(processed_data).transpose()
-        
+    elif data.dtype == np.object:
+        processed_data = []
+        for i in range(data.shape[0]):
+            processed_channel = process_single_channel(data[i], *args, **kwargs)
+            processed_data.append(processed_channel)
+        return array(processed_data).transpose()

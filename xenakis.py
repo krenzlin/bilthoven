@@ -1,4 +1,4 @@
-from bilthoven.random_functions import random_walk_simple, random_walk, normalize
+from bilthoven.random_functions import random_walk_simple, random_walk, normalize, mirror_walk
 from bilthoven import write_wave
 import numpy as np
 from itertools import izip
@@ -6,17 +6,30 @@ from itertools import izip
 import pylab
 
 
+def create_random_limits(lower_boundary, upper_boundary):
+    min, max = np.random.uniform(lower_boundary, upper_boundary, 2)
+    if min > max:
+        min, max = max, min
+    return min, max
 
 
-def gendy(segments, iterations, duration_factor=32.0):
+def gendy(segments, iterations, duration_factor=12.0):
+    duration_limits = create_random_limits(0.9, 1)
+    amplitude_limits = create_random_limits(-1, 1)
+    print 'segments:', segments
+    print 'durations:', duration_limits
+    print 'duration factor:', duration_factor
+    print 'amplitudes:', amplitude_limits
+
     durations = []
     for segment in xrange(segments):
-        durations += [list(random_walk_simple(iterations))]
+        durations += [list(mirror_walk(iterations, duration_limits[0], duration_limits[1]))]
     durations = np.array(durations)
+
 
     amplitudes = []
     for segment in xrange(segments):
-        rw = normalize(random_walk_simple(iterations), min=-1, max=1)
+        rw = mirror_walk(iterations, amplitude_limits[0], amplitude_limits[1])
         amplitudes += [list(rw)]
     amplitudes = np.array(amplitudes)
 
@@ -34,7 +47,7 @@ def gendy(segments, iterations, duration_factor=32.0):
 
 
 wave = []
-for i,j in izip(gendy(72, 1000), gendy(10, 1000)):
+for i in gendy(10, 1000):
     wave += list(i) #+ list(j)
 #print wave
 write_wave('output/gendy.wav', 44100, np.array(wave))

@@ -1,0 +1,21 @@
+gendy3.wav
+----------
+segments: 10
+durations: (0.55526831129577159, 0.91748699488674612)
+duration_factor: 12
+amplitudes: (-0.83771690377901131, 0.5134234062834464)
+
+
+gendy4.wav
+----------
+segments: 10
+durations: (0.5, 0.5)
+duration factor: 12.0
+amplitudes: (-0.78343791478079328, 0.88870222971909452)
+
+gendy5.wav
+----------
+segments: 10
+durations: (0.93460439388207128, 0.95222821077187747)
+duration factor: 12.0
+amplitudes: (0.278183085701319, 0.33154207985016115)

@@ -39,3 +39,20 @@ def normalize(xs, min=0, max=1, randomize=False):
     xs *= (max - min)
     xs += min
     return xs
+
+
+def mirror_walk(N, lower_boundary=0, upper_boundary=1, factor=1):
+    rw = np.zeros(N)
+    current = 0
+    for i in range(N):
+        current += factor*(np.random.rand() - 0.5)
+
+        if current > upper_boundary:
+            current = upper_boundary - (current - upper_boundary)
+
+        if current < lower_boundary:
+            current = lower_boundary - (current - lower_boundary)
+
+        rw[i] = current
+
+    return rw
